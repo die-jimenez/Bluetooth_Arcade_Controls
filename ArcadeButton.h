@@ -22,6 +22,7 @@ public:
 
   void Init(bool _ledState);
   void Press(BleKeyboard _bleKeyboard);
+  void Release(BleKeyboard _bleKeyboard);
   bool isPressed();
   bool Read();
   void LedOn();

@@ -10,7 +10,7 @@ bool bluetoothConectado;
 #define GPIO_GREEN_LED 6
 #define GPIO_YELLOW_LED 7
 
-//Pines de Botones 
+//Pines de Botones
 #define GPIO_RED_BUTTON 15
 #define GPIO_BLUE_BUTTON 16
 #define GPIO_GREEN_BUTTON 17
@@ -82,38 +82,51 @@ void loop() {
     //Joystick
     // joystick.Loop(bleKeyboard);
 
-    //Botones
     if (redButton.isPressed()) {
-      if (!redButton.isKeyDown) {
         redButton.Press(bleKeyboard);
         redButton.isKeyDown = true;
+        Serial.print(".");
+    } else {
+      if (redButton.isKeyDown) {
+        redButton.Release(bleKeyboard);
+        Serial.println("");
+        Serial.println("solto la tecla");
+        redButton.isKeyDown = false;
+      }
+    }
+
+    //Botones
+    // if (redButton.isPressed()) {
+    //   if (!redButton.isKeyDown) {
+    //     redButton.Press(bleKeyboard);
+    //     redButton.isKeyDown = true;
+    //   }
+    //   //delay(50);
+    // } else redButton.isKeyDown = false;
+
+    if (blueButton.isPressed()) {
+      if (!blueButton.isKeyDown) {
+        blueButton.Press(bleKeyboard);
+        blueButton.isKeyDown = true;
       }
       //delay(50);
-    } else redButton.isKeyDown = false;
+    } else blueButton.isKeyDown = false;
 
-      if (blueButton.isPressed()) {
-        if (!blueButton.isKeyDown) {
-          blueButton.Press(bleKeyboard);
-          blueButton.isKeyDown = true;
-        }
-        //delay(50);
-      } else blueButton.isKeyDown = false;
+    if (greenButton.isPressed()) {
+      if (!greenButton.isKeyDown) {
+        greenButton.Press(bleKeyboard);
+        greenButton.isKeyDown = true;
+      }
+      //delay(50);
+    } else greenButton.isKeyDown = false;
 
-      if (greenButton.isPressed()) {
-        if (!greenButton.isKeyDown) {
-          greenButton.Press(bleKeyboard);
-          greenButton.isKeyDown = true;
-        }
-        //delay(50);
-      } else greenButton.isKeyDown = false;
-
-      if (yellowButton.isPressed()) {
-        if (!yellowButton.isKeyDown) {
-          yellowButton.Press(bleKeyboard);
-          yellowButton.isKeyDown = true;
-        }
-        //delay(50);
-      } else yellowButton.isKeyDown = false;
+    if (yellowButton.isPressed()) {
+      if (!yellowButton.isKeyDown) {
+        yellowButton.Press(bleKeyboard);
+        yellowButton.isKeyDown = true;
+      }
+      //delay(50);
+    } else yellowButton.isKeyDown = false;
   }
   delay(10);
 }
@@ -124,7 +137,7 @@ void loop() {
 // }
 
 void ApagarLedIntegrado() {
-  neopixelWrite(48, 0, 0, 0);   // apagado
+  neopixelWrite(48, 0, 0, 0);  // apagado
 }
 
 void EncenderLedIntegrado() {

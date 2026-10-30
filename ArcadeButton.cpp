@@ -20,9 +20,13 @@ void ArcadeButton::Init(bool _ledState) {
 
 void ArcadeButton::Press(BleKeyboard _bleKeyboard) {
   _bleKeyboard.press(key);
+  // _bleKeyboard.release(key);
+  // Serial.print(key);
+  // Serial.println(" fue presionada");
+}
+
+void ArcadeButton::Release(BleKeyboard _bleKeyboard) {
   _bleKeyboard.release(key);
-  Serial.print(key);
-  Serial.println(" fue presionada");
 }
 
 void ArcadeButton::LedOn() {
