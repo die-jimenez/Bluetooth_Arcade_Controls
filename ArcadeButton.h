@@ -1,3 +1,5 @@
+#include <BleKeyboard.h>
+
 #ifndef __ARCADEBUTTON_H__
 #define __ARCADEBUTTON_H__
 

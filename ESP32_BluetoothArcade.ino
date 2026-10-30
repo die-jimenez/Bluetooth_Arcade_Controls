@@ -5,22 +5,22 @@ BleKeyboard bleKeyboard;
 bool bluetoothConectado;
 
 //Pines de Leds
-#define GPIO_RED_LED 25
-#define GPIO_BLUE_LED 26
-#define GPIO_GREEN_LED 27
-#define GPIO_YELLOW_LED 33
+#define GPIO_RED_LED 4
+#define GPIO_BLUE_LED 5
+#define GPIO_GREEN_LED 6
+#define GPIO_YELLOW_LED 7
 
-//Pines de Botones (Pines con INPUT_PULLUP: 14, 16, 17, 18, 19, 21, 22, 23)
-#define GPIO_RED_BUTTON 16
-#define GPIO_BLUE_BUTTON 17
-#define GPIO_GREEN_BUTTON 22
-#define GPIO_YELLOW_BUTTON 23
+//Pines de Botones 
+#define GPIO_RED_BUTTON 15
+#define GPIO_BLUE_BUTTON 16
+#define GPIO_GREEN_BUTTON 17
+#define GPIO_YELLOW_BUTTON 18
 
 //Pines del Joystick
-#define GPIO_FRONT_RED 14
-#define GPIO_DOWN_ORANGE 18
-#define GPIO_LEFT_YELLOW 19
-#define GPIO_RIGHT_GREEN 21
+#define GPIO_FRONT_RED 8
+#define GPIO_DOWN_ORANGE 9
+#define GPIO_LEFT_YELLOW 10
+#define GPIO_RIGHT_GREEN 11
 
 
 //Keys de botones
@@ -44,6 +44,8 @@ void setup() {
   //inicializa la libreria
   bleKeyboard.begin();
   Serial.begin(115200);
+  delay(2000);
+
   Serial.println("La libreria de bluetooth se inicio");
   Serial.println("Si la luz azul del ESP32 esta encendida, se conecto por bluetooth");
 
@@ -54,10 +56,8 @@ void setup() {
   yellowButton.Init(HIGH);
 
   //InitButtons();
-  joystick.Init();
-  InitLedIntegrado();
-  ApagarLedIntegrado();
-
+  // joystick.Init();
+  EncenderLedIntegrado();
   bleKeyboard.setDelay(0);
 }
 
@@ -80,7 +80,7 @@ void loop() {
     }
 
     //Joystick
-    joystick.Loop(bleKeyboard);
+    // joystick.Loop(bleKeyboard);
 
     //Botones
     if (redButton.isPressed()) {
@@ -91,29 +91,29 @@ void loop() {
       //delay(50);
     } else redButton.isKeyDown = false;
 
-    if (blueButton.isPressed()) {
-      if (!blueButton.isKeyDown) {
-        blueButton.Press(bleKeyboard);
-        blueButton.isKeyDown = true;
-      }
-      //delay(50);
-    } else blueButton.isKeyDown = false;
+      if (blueButton.isPressed()) {
+        if (!blueButton.isKeyDown) {
+          blueButton.Press(bleKeyboard);
+          blueButton.isKeyDown = true;
+        }
+        //delay(50);
+      } else blueButton.isKeyDown = false;
 
-    if (greenButton.isPressed()) {
-      if (!greenButton.isKeyDown) {
-        greenButton.Press(bleKeyboard);
-        greenButton.isKeyDown = true;
-      }
-      //delay(50);
-    } else greenButton.isKeyDown = false;
+      if (greenButton.isPressed()) {
+        if (!greenButton.isKeyDown) {
+          greenButton.Press(bleKeyboard);
+          greenButton.isKeyDown = true;
+        }
+        //delay(50);
+      } else greenButton.isKeyDown = false;
 
-    if (yellowButton.isPressed()) {
-      if (!yellowButton.isKeyDown) {
-        yellowButton.Press(bleKeyboard);
-        yellowButton.isKeyDown = true;
-      }
-      //delay(50);
-    } else yellowButton.isKeyDown = false;
+      if (yellowButton.isPressed()) {
+        if (!yellowButton.isKeyDown) {
+          yellowButton.Press(bleKeyboard);
+          yellowButton.isKeyDown = true;
+        }
+        //delay(50);
+      } else yellowButton.isKeyDown = false;
   }
   delay(10);
 }
@@ -123,10 +123,10 @@ void loop() {
 //   pinMode(greenButton, INPUT_PULLUP);
 // }
 
-void InitLedIntegrado() {
-  pinMode(2, OUTPUT);
+void ApagarLedIntegrado() {
+  neopixelWrite(48, 0, 0, 0);   // apagado
 }
 
-void ApagarLedIntegrado() {
-  digitalWrite(2, LOW);
+void EncenderLedIntegrado() {
+  neopixelWrite(48, 0, 0, 20);  // azul, valores de 0 a 255
 }
