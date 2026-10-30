@@ -1,5 +1,5 @@
 # Bluetooth Arcade Controls
-Este código fue creado para una **ESP32 WROOM 32S**.  
+Este código fue creado para una **ESP32 S3 N8R16**.  
 La librería **BleKeyboard** es compatible con este modelo, pero es necesario modificar un archivo interno de la librería.
 
 ### Pasos a seguir
@@ -10,13 +10,11 @@ La librería **BleKeyboard** es compatible con este modelo, pero es necesario mo
 2. Localizá las siguientes líneas que causan el error:
 
 ```cpp
-BLEDevice::init(deviceName);
-hid->manufacturer()->setValue(deviceManufacturer);
+pSecurity->setAuthenticationMode(ESP_LE_AUTH_REQ_SC_MITM_BOND);
 ```
 por: 
 ```cpp
-BLEDevice::init(String(deviceName.c_str()));
-hid->manufacturer()->setValue(String(deviceManufacturer.c_str()));
+pSecurity->setAuthenticationMode(ESP_LE_AUTH_BOND);
 ```
 
 --> URL de la libreria: https://github.com/T-vK/ESP32-BLE-Keyboard
